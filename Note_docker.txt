@@ -1,0 +1,38 @@
+------------ Tổng hợp lệnh Docker cho dự án Web_Restaurant ----------
+
+1. Xây dựng Image
+"docker build -t <ten_image> ."
+
+Tạo image từ Dockerfile.
+
+2. Kiểm tra Image
+"docker images
+"
+- Xem danh sách image (hostrestaurant:latest).
+
+3. Tạo và chạy Container
+"docker run -d -p 8080:8080 --name <ten_container> <ten_image> "
+
+- Chạy container, ánh xạ cổng 8080.
+
+- Với biến môi trường:
+"docker run -d -p 8080:8080 --name restaurant-container -e "ConnectionStrings__DefaultConnection=your_connection_string" hostrestaurant:latest "
+4. Kiểm tra Container
+"docker ps"
+
+5. Dừng và xóa Container
+"docker stop restaurant-container
+docker rm restaurant-container"
+
+6. Đăng nhập Docker Hub
+"docker login"
+
+
+7. Tag Image
+"docker tag hostrestaurant:latest yourusername/hostrestaurant:latest"
+
+
+8. Đẩy Image lên Docker Hub
+
+"docker push yourusername/hostrestaurant:latest"
+

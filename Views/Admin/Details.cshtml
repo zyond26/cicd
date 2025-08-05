@@ -1,0 +1,63 @@
+﻿@model WebRestaurant.Models.Order
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="form-container">
+        <h2 class="text-center">Chi tiết đơn hàng #@Model.Id</h2>
+
+        <div class="mb-4">
+            <h5>Thông tin khách hàng</h5>
+            <p><strong>Tên:</strong> @Model.User.Name</p>
+            <p><strong>Email:</strong> @Model.User.Email</p>
+            <p><strong>Số điện thoại:</strong> @Model.User.Phone</p>
+            <p><strong>Địa chỉ:</strong> @Model.User.Address</p>
+            <p><strong>Trạng thái:</strong> @Model.Status</p>
+            <p><strong>Ngày tạo:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+        </div>
+
+        <div>
+            <h5>Danh sách món ăn</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tên món</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>@item.MenuItem.Name</td>
+                            <td>@item.MenuItem.Price.ToString("N0") đ</td>
+                            <td>@item.Quantity</td>
+                            <td>@(item.MenuItem.Price * item.Quantity) đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <h5 class="text-end mt-3">Tổng tiền: <span class="text-danger fw-bold">@Model.OrderDetails.Sum(x => x.MenuItem.Price * x.Quantity).ToString("N0") đ</span></h5>
+        </div>
+
+        <div class="mt-4 text-center">
+            <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Quay lại danh sách</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+</style>

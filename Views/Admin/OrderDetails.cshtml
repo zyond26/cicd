@@ -1,0 +1,30 @@
+﻿@model WebRestaurant.Models.Order
+
+<div class="container">
+    <h2>Chi tiết đơn hàng #@Model.Id</h2>
+    <p><strong>Tên khách hàng:</strong> @Model.User.Name</p>
+    <p><strong>Số điện thoại:</strong> @Model.User.Phone</p>
+    <p><strong>Địa chỉ:</strong> @Model.User.Address</p>
+    <p><strong>Trạng thái:</strong> @Model.Status</p>
+    <p><strong>Ngày tạo:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+    <h4>Danh sách món ăn</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên món ăn</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detail in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@detail.MenuItem.Name</td>
+                    <td>@detail.Quantity</td>
+                    <td>@detail.MenuItem.Price.ToString("N0") VND</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

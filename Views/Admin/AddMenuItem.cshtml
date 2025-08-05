@@ -1,0 +1,62 @@
+﻿@model WebRestaurant.Models.MenuItem
+
+<div class="container">
+    
+
+    <div class="form-container">
+        <h2 class="text-center">Thêm món ăn mới</h2>
+        <form asp-action="AddMenuItem" method="post">
+            <div class="d-flex flex-column gap-3">
+                <div class="form-group">
+                    <label for="Name" class="form-label">Tên món ăn:</label>
+                    <input type="text" name="Name" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Price" class="form-label">Giá:</label>
+                    <input type="number" name="Price" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Description" class="form-label">Mô tả:</label>
+                    <textarea name="Description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="ImageUrl" class="form-label">Hình ảnh:</label>
+                    <input type="text" name="ImageUrl" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Category" class="form-label">Phân loại:</label>
+                    <select name="Category" class="form-control" required>
+                        <option value="">-- Chọn phân loại --</option>
+                        <option value="Đồ ăn nhanh">Đồ ăn nhanh</option>
+                        <option value="Đồ uống">Đồ uống</option>
+                        <option value="Khai vị">Khai vị</option>
+                        <option value="Món chính">Món chính</option>
+                        <option value="Tráng miệng">Tráng miệng</option>
+                    </select>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary mt-2">Thêm món ăn</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .form-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .d-flex.flex-column.gap-3 > .form-group {
+        margin-bottom: 15px;
+    }
+</style>

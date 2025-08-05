@@ -1,0 +1,148 @@
+# services:
+#   
+#   minio:
+#     image: minio/minio:latest
+#     container_name: minio
+#     ports:
+#       - "9000:9000"
+#       - "9001:9001"
+#     environment:
+#       MINIO_ROOT_USER: admin
+#       MINIO_ROOT_PASSWORD: 12345678
+#     command: server /data --console-address ":9001"
+#     volumes:
+#       - minio_data:/data
+
+#   grafana:
+#     image: grafana/grafana:latest
+#     container_name: grafana
+#     ports:
+#       - "3000:3000"
+#     volumes:
+#       - grafana_data:/var/lib/grafana
+#     # note : login grafana always:
+#     # username:   admin
+#     # pass:       admin
+
+#   prometheus:
+#     image: prom/prometheus:latest
+#     container_name: prometheus
+#     ports:
+#       - "9090:9090"
+#     volumes:
+#       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+# volumes:
+#   minio_data:
+#   grafana_data:
+
+# ---------------------------- Work with Traefik ----------------------
+
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "8080:8080"
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --log.level=DEBUG
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik-net
+
+  web-restaurant:
+    container_name: web-restaurant
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=workstation id=WebRestaurant12.mssql.somee.com;packet size=4096;user id=dieuuu;pwd=${SQL_SERVER_PASSWORD};data source=WebRestaurant12.mssql.somee.com;persist security info=False;initial catalog=WebRestaurant12;TrustServerCertificate=True
+      - Jwt__Key=${JWT_KEY}
+      - Authentication__Google__ClientId=${GOOGLE_CLIENT_ID}
+      - Authentication__Google__ClientSecret=${GOOGLE_CLIENT_SECRET}
+      - MinioSettings__Endpoint=http://minio:9000
+      - MinioSettings__AccessKey=${MINIO_ACCESS_KEY}
+      - MinioSettings__SecretKey=${MINIO_SECRET_KEY}
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web-restaurant.rule=Host(`web.localhost`)"
+      - "traefik.http.routers.web-restaurant.entrypoints=web"
+      - "traefik.http.services.web-restaurant.loadbalancer.server.port=5000"
+    volumes:
+      - web_keys:/app/keys
+    networks:
+      - traefik-net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.localhost`)"
+      - "traefik.http.routers.grafana.entrypoints=web"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+    networks:
+      - traefik-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)"
+      - "traefik.http.routers.prometheus.entrypoints=web"
+      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+    networks:
+      - traefik-net
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: 12345678
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    labels:
+      - "traefik.enable=true" # API MinIO (9000)
+      - "traefik.http.routers.minio.rule=Host(`minio.localhost`)"
+      - "traefik.http.routers.minio.entrypoints=web"
+      - "traefik.http.routers.minio.service=minio-api"
+      - "traefik.http.services.minio-api.loadbalancer.server.port=9000"
+
+      # Console UI (9001)
+      - "traefik.http.routers.minio-console.rule=Host(`minio-console.localhost`)"
+      - "traefik.http.routers.minio-console.entrypoints=web"
+      - "traefik.http.routers.minio-console.service=minio-console"
+      - "traefik.http.services.minio-console.loadbalancer.server.port=9001"
+    networks:
+      - traefik-net
+
+volumes:
+  grafana_data:
+  minio_data:
+  web_keys:
+
+
+networks:
+  traefik-net:
+    name: traefik-net
+    driver: bridge

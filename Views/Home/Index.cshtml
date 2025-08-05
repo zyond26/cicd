@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-center">@TempData["ErrorMessage"]</div>
+}
+
+
+<style>
+    .full-width-carousel {
+        position: relative;
+        left: 50%;
+        margin-left: -50vw;
+        width: 100vw;
+        margin-top: -1.5rem;
+        margin-bottom: -1.5rem;
+        overflow-x: hidden;
+    }
+</style>
+
+<div class="full-width-carousel">
+    <!-- Bắt đầu phần carousel full trang -->
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Các nút chấm chuyển slide -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+
+        <!-- Vùng chứa các slide -->
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active position-relative" style="background: url('https://png.pngtree.com/background/20230604/original/pngtree-restaurant-and-bar-counter-background-image-picture-image_2873150.jpg')
+                        no-repeat center center;
+                        background-size: cover;
+                        height: 100vh;" data-bs-interval="5000">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.6);">
+                </div>
+                <div class="d-flex h-100 align-items-center justify-content-center position-relative">
+                    <div class="text-center text-white" style="max-width: 700px;">
+                        <h1 class="mb-3" style="font-weight: bold;">Chào mừng đến với WebOrderRestaurant</h1>
+                        <p class="lead mb-4">Khám phá và thưởng thức các món ăn ngon và ưu đãi hấp dẫn!</p>
+                        <a class="btn btn-primary btn-lg" href="/Menu">Xem thực đơn</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Món khai vị -->
+            <div class="carousel-item position-relative" style="background: url('https://file3.qdnd.vn/data/images/14/2023/04/05/haily/amthucvn661115714am-111.jpg')
+                        no-repeat center center;
+                        background-size: cover;
+                        height: 100vh;" data-bs-interval="5000">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.6);">
+                </div>
+                <div class="d-flex h-100 align-items-center justify-content-center position-relative">
+                    <div class="text-center text-white" style="max-width: 700px;">
+                        <h1 class="mb-3">Món khai vị</h1>
+                        <p class="lead mb-4">Những món khai vị hấp dẫn để kích thích vị giác!</p>
+                        <a class="btn btn-primary btn-lg" href="/Menu">Khám phá ngay</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Món chính -->
+            <div class="carousel-item position-relative" style="background: url('https://cdn.tgdd.vn/Files/2020/11/30/1310327/5-quan-an-nha-hang-mien-trung-noi-tieng-o-quan-3-202011301033149798.jpg')
+                        no-repeat center center;
+                        background-size: cover;
+                        height: 100vh;" data-bs-interval="5000">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.6);">
+                </div>
+                <div class="d-flex h-100 align-items-center justify-content-center position-relative">
+                    <div class="text-center text-white" style="max-width: 700px;">
+                        <h1 class="mb-3">Món chính</h1>
+                        <p class="lead mb-4">Những món ăn đậm đà, trọn vị cho bữa ăn!</p>
+                        <a class="btn btn-primary btn-lg" href="/Menu">Đặt món ngay</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Món tráng miệng -->
+            <div class="carousel-item position-relative" style="background: url('https://forevermark.vn/wp-content/uploads/2023/04/tam-quan-trong-cua-cac-mon-trang-mieng-trong-nha-hang.jpg')
+                        no-repeat center center;
+                        background-size: cover;
+                        height: 100vh;" data-bs-interval="5000">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.6);">
+                </div>
+                <div class="d-flex h-100 align-items-center justify-content-center position-relative">
+                    <div class="text-center text-white" style="max-width: 700px;">
+                        <h1 class="mb-3">Món tráng miệng</h1>
+                        <p class="lead mb-4">Những món tráng miệng ngọt ngào kết thúc hoàn hảo bữa ăn!</p>
+                        <a class="btn btn-primary btn-lg" href="/Menu">Đặt ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút điều khiển trái/phải -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Trước</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Sau</span>
+        </button>
+    </div>
+    <!-- Kết thúc phần carousel -->
+</div>

@@ -1,0 +1,52 @@
+﻿/* Đảm bảo carousel full màn hình */
+#heroCarousel {
+    width: 100%;
+    max-width: 100%;
+}
+
+    #heroCarousel .carousel-item {
+        height: 100vh; /* Full chiều cao màn hình */
+    }
+
+        #heroCarousel .carousel-item img {
+            object-fit: cover; /* Ảnh không bị méo */
+            width: 100%;
+            height: 100%;
+        }
+
+/* Overlay tối */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Overlay mờ */
+}
+
+/* Chữ căn giữa */
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+    /* Nút bấm */
+    .carousel-caption .btn {
+        margin: 10px;
+        padding: 12px 20px;
+        border: 2px solid white;
+        font-size: 18px;
+    }
+
+/* Đảm bảo trang web không bị margin thừa */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}

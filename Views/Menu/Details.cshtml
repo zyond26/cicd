@@ -1,0 +1,132 @@
+﻿@model WebRestaurant.Models.MenuItem
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Chi tiết món ăn";
+}
+
+<div class="main-container">
+    <div class="menu-item-container">
+        <div class="menu-item-image">
+            @{
+                string imageUrl = Model.ImageUrl.StartsWith("http")
+                ? Model.ImageUrl
+                : Url.Content("~/images/" + Model.ImageUrl);
+            }
+
+            <img src="@imageUrl" class="img-fluid rounded" alt="@Model.Name" />
+
+        </div>
+
+        <div class="menu-item-details">
+            <h2 class="text-center">@Model.Name</h2>
+            <p class="text-center">@Model.Description</p>
+            <h4 class="text-center">Giá: @Model.Price.ToString("N0") VND</h4>
+            <form method="post" action="/Cart/AddToCart">
+                <input type="hidden" name="menuItemId" value="@Model.Id" />
+                <div class="form-group text-center">
+                    <label for="quantity" class="form-label">Số lượng:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1"
+                           class="form-control text-center" style="width:100px; margin: auto;" />
+                </div>
+                <button type="submit" class="btn btn-success w-100">Thêm vào giỏ hàng</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Phần đánh giá -->
+    <div class="review-container">
+        <h3 class="text-center">Đánh giá từ khách hàng</h3>
+        <div class="review-box">
+            @if (Model.Reviews.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <li class="list-group-item">
+                            <strong>@review.UserName:</strong>
+                            <span class="text-warning">⭐ @review.Rating / 5</span>
+                            <p>@review.Comment</p>
+                            <small class="text-muted">@review.CreatedAt.ToString("dd/MM/yyyy")</small>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-center">Chưa có đánh giá nào.</p>
+            }
+        </div>
+        <div class="review-form">
+            <h5>Thêm đánh giá của bạn</h5>
+            <form asp-action="AddReview" method="post">
+                <input type="hidden" name="menuItemId" value="@Model.Id" />
+                <input type="text" name="userName" class="form-control" placeholder="Tên của bạn" required />
+                <select name="rating" class="form-control mt-2">
+                    <option value="1">1 ⭐</option>
+                    <option value="2">2 ⭐⭐</option>
+                    <option value="3">3 ⭐⭐⭐</option>
+                    <option value="4">4 ⭐⭐⭐⭐</option>
+                    <option value="5">5 ⭐⭐⭐⭐⭐</option>
+                </select>
+                <textarea name="comment" class="form-control mt-2" placeholder="Nhập bình luận" required></textarea>
+                <button type="submit" class="btn btn-primary mt-2">Gửi</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .menu-item-container, .review-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .menu-item-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .review-box {
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #f9f9f9;
+    }
+
+    .review-form {
+        position: sticky;
+        bottom: 10px;
+        right: 10px;
+        width: 100%;
+        max-width: 450px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @@media (max-width: 768px) {
+        .main-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>

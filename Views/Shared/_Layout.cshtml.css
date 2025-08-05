@@ -1,0 +1,92 @@
+﻿/* Đảm bảo khung web vừa vặn với màn hình */
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Ngăn chặn cuộn ngang */
+}
+
+.container {
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa */
+    padding: 15px;
+}
+
+/* Đảm bảo hình ảnh fit với màn hình web */
+img {
+    max-width: 100%;
+    height: auto; /* Giữ tỷ lệ khung hình */
+    display: block;
+}
+
+/* Định dạng header và footer */
+header {
+    width: 100%;
+    position: relative;
+}
+
+.footer {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 15px 0;
+}
+
+/* Chỉnh navbar để phù hợp với mọi màn hình */
+.navbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    white-space: nowrap;
+    text-align: center;
+    word-break: break-word;
+}
+
+.navbar-nav {
+    flex-direction: row;
+    gap: 15px;
+}
+
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #0056b3;
+    }
+
+/* Định dạng lại nút bấm */
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Định dạng responsive cho trang web */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer {
+        position: relative;
+    }
+}

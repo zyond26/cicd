@@ -1,0 +1,45 @@
+------  MinIO - Object Storage riêng tư ------------
+
+🔍 Mục đích chính:
+Thay thế Amazon S3 khi cần lưu trữ file (ảnh, video, backup) trên server riêng
+
+Dùng trong môi trường dev/test không muốn phụ thuộc vào cloud
+
+Lưu trữ dữ liệu cho AI/ML, log hệ thống, file tạm
+
+** cài đặt MinIO
+
++) viết vào trong docker-compose.yml
+
+rồi chạy lệnh :
+                       docker compose up -d 
+
+rồi
+
+==> 	Sau đó có thể truy cập http://localhost:9001
+Đăng nhập bằng MINIO_ROOT_USER và MINIO_ROOT_PASSWORD đã đặt.
+
+
+
+
+ 1. minio – Cổng API (9000):
+Đây là S3-compatible API endpoint.
+
+Dùng để:
+
+Kết nối với các ứng dụng như: Jenkins, AWS CLI, MinIO client (mc), phần mềm backup, v.v.
+
+Upload/download file thông qua lệnh (ví dụ: aws s3 cp, mc alias set, SDK, v.v.)
+
+Không phải giao diện người dùng.
+
+✅ Gắn domain: minio.localhost → trỏ tới cổng 9000
+
+🖥️ 2. minio-console – Giao diện quản trị Web (9001):
+Đây là giao diện web để người dùng truy cập, quản lý bucket, object, cấu hình IAM...
+
+Có thể đăng nhập với MINIO_ROOT_USER / MINIO_ROOT_PASSWORD
+
+Dễ dùng cho quản trị viên và tester.
+
+✅ Gắn domain: minio-console.localhost → trỏ tới cổng 9001

@@ -1,0 +1,15 @@
+2. Grafana - Giám sát hệ thống
+🔍 Mục đích chính:
+Hiển thị metrics server (CPU, RAM, Disk) dạng biểu đồ
+
+Giám sát hiệu năng ứng dụng .NET qua Prometheus
+
+Tạo dashboard cảnh báo khi hệ thống quá tải
+
+- 🛠 Cài đặt với Docker Compose:
+
++) Tạo file docker-compose.yml roi chayj leenhj 
+
+docker compose up -d
+
+                

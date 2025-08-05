@@ -1,0 +1,38 @@
+------------ Các bước CI/CD đơn giản --------
+
+- đã tải git 
+- đã tải ngrok
+- đã tải jenkins
+
+
+
+1. Tạo 1 repo trên github rồi git clone về máy 
+- tạo file "Jenkinsfile" trống cũng được để test jenkins 
+
+2. mở ngrok.exe đã tải về xong mở trang chủ ngrok tạo tài khoản xong lấy mã key 
++) lấy đc user thì thêm vào cmd đg mở của ngrok r ấn enter
++) sau đó bấm " ngrok http <cổng jenkins>-vd:8099 " 
+-> enter rồi hiện ra đoạn link
+
+Thì copy đến chữ app thôi - vidu: https://3452-222-252-127-126.ngrok-free.app
+
+3. Mở repo đã tạo ở github ra vào setting của repo đó bấm webhook rồi bấm addwebhook
+
+gắn link: (link ở ngrok)/github-webhook/
+
+vidu: https://3452-222-252-127-126.ngrok-free.app/github-webhook/
+
+-> bấm save rồi f5 nếu tick xanh là thành công còn ko thì fail
+
+B4 : vào jenkins đăng nhập xong tạo new item
+New Item > Tên: WebRestaurant, chọn Pipeline.
+Build Triggers: Check GitHub hook trigger for GITScm polling.
+Pipeline: Chọn Pipeline script from SCM.
+SCM: Git.
+Repository URL: https://github.com/zyond26/Web_Restaurant_host.git. ( ví dụ thôi nha) 
+Branch: master.( hoặc main) 
+Script Path: Jenkinsfile.
+
++)sau đó ấn save rôi Build Now có tick xanh là được nha 
+
+- ngonnn

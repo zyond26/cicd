@@ -1,0 +1,108 @@
+﻿@model WebRestaurant.Models.CheckoutViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Thanh toán";
+}
+
+<div class="main-container">
+    <div class="checkout-container">
+        <h2 class="text-center">Thanh toán</h2>
+
+        <form asp-action="Checkout" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="form-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PaymentMethod" class="form-label"></label>
+                <select asp-for="PaymentMethod" class="form-control">
+                    <option value="">-- Chọn phương thức thanh toán --</option>
+                    <option value="MoMo">MoMo</option>
+                    <option value="Agribank">Agribank</option>
+                    <option value="Visa">Visa</option>
+                    <option value="MasterCard">MasterCard</option>
+                    <option value="BIDV">BIDV</option>
+                    <option value="Vietcombank">Vietcombank</option>
+                    <option value="Vietinbank">Vietinbank</option>
+                    <option value="Techcombank">Techcombank</option>
+                    <option value="Sacombank">Sacombank</option>
+                    <option value="ACB">ACB</option>
+                </select>
+                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Xác nhận thanh toán</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    /* Layout chính của trang */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: url('https://posapp.vn/wp-content/uploads/2018/03/khu-vuc-an-uong.png') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    /* Chia bố cục trang */
+    .main-container {
+        flex: 1; /* Đẩy nội dung vào giữa */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Khung thanh toán */
+    .checkout-container {
+        background: rgba(255, 255, 255, 0.9); /* Làm nền mờ */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 600px;
+        text-align: center;
+    }
+
+    /* Căn chỉnh input và button */
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn-primary {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+</style>

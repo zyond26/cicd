@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebRestaurant.Models.MenuItem>
+
+<div class="container">
+    <h2 class="text-center mb-4" style="font-weight: bold;color:white" ;>Quản lý thực đơn</h2>
+
+    <!-- Card hiển thị thông tin thực đơn -->
+    <div class="card">
+        <div class="card-header">
+            Danh sách món ăn
+            <a href="@Url.Action("AddMenuItem")" class="btn btn-primary btn-sm float-end">Thêm món ăn mới</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên món ăn</th>
+                        <th>Giá</th>
+                        <th>Mô tả</th>
+                        <th>Hình ảnh</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Price.ToString("N0") VND</td>
+                            <td>@item.Description</td>
+                            <td>
+                                @{
+                                    // Kiểm tra nếu ImageUrl là đường dẫn internet hay ảnh đã tải về
+                                    bool isExternalImage = item.ImageUrl.StartsWith("http://") ||
+                                    item.ImageUrl.StartsWith("https://");
+                                    string imageUrl = isExternalImage ? item.ImageUrl : Url.Content("~/images/" +
+                                    item.ImageUrl);
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
+                                    <img src="@imageUrl" alt="@item.Name" style="width: 100px; height: auto;" />
+                                }
+                                else
+                                {
+                                    <span>Chưa có ảnh</span>
+                                }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("EditMenuItem", "Admin", new { id = item.Id })"
+                                    class="btn btn-warning btn-sm">Sửa</a>
+                                <form action="@Url.Action("DeleteMenuItem", "Admin", new { id = item.Id })" method="post"
+                                    style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

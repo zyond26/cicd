@@ -1,0 +1,5 @@
+Tổng quan về các công cụ và vai trò
+MinIO: Dịch vụ lưu trữ đối tượng tương thích S3, dùng để lưu trữ tệp tĩnh, artifact, hoặc dữ liệu khác cho ứng dụng .NET Core MVC của bạn.
+Grafana: Công cụ giám sát và trực quan hóa, giúp theo dõi hiệu suất ứng dụng và pipeline CI/CD.
+Kubernetes (k8s): Nền tảng điều phối container, quản lý ứng dụng .NET Core, MinIO, Grafana, và Traefik.
+Traefik: Ingress controller hiện đại, quản lý lưu lượng truy cập đến ứng dụng của bạn trong Kubernetes.

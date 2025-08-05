@@ -1,0 +1,124 @@
+﻿@model WebRestaurant.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center mt-3">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger text-center mt-3">@TempData["ErrorMessage"]</div>
+}
+
+
+<div class="main-container">
+    <div class="register-container">
+        <h2 class="text-center">Đăng ký</h2>
+
+ 
+        <form asp-action="Register" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address" class="form-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Đã có tài khoản? <a asp-action="Login">Đăng nhập ngay</a>.
+        </p>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+<style>
+    /* Layout chính của trang */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: url('https://posapp.vn/wp-content/uploads/2018/03/khu-vuc-an-uong.png') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    /* Chia bố cục trang */
+    .main-container {
+        flex: 1; /* Đẩy nội dung vào giữa */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Khung đăng ký */
+    .register-container {
+        background: rgba(255, 255, 255, 0.9); /* Làm nền mờ */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        text-align: center;
+    }
+
+    /* Căn chỉnh input và button */
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn-primary {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+</style>
