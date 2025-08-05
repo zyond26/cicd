@@ -113,7 +113,7 @@ pipeline {
             }
         }
 
-        // stage('Upload file lên MinIO') {
+        stage('Upload file lên MinIO') {
             steps {
                 bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --endpoint-url http://minio.localhost s3 cp WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK s3://order-files/WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK'
             }
