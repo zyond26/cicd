@@ -2,6 +2,7 @@
 // // This Jenkinsfile defines a CI/CD pipeline for a .NET application that builds, tests, and deploys the application to Docker Hub and IIS.
 //ngonnnnnnnnnnn  
 //  ------------------ tich hop traefik ----------------------
+// updateee
 
 pipeline {
     agent any
