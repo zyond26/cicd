@@ -42,6 +42,7 @@
 services:
   web:
     image: web_restaurant:latest
+    container_name: web_cicd
     build:
       context: .
       dockerfile: Dockerfile
@@ -60,7 +61,7 @@ services:
   minio:
     image: minio/minio:latest
     ports:
-      - "9000:9000"
+      - "9003:9000"
       - "9001:9001"
     environment:
       - MINIO_ROOT_USER=admin
@@ -118,6 +119,36 @@ services:
     networks:
       - traefik-net
 
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://postgres:5432/sonar
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+    networks:
+      - traefik-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarqube.rule=Host(`sonarqube.localhost`)"
+      - "traefik.http.services.sonarqube.loadbalancer.server.port=9000"
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+      - POSTGRES_DB=sonar
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - traefik-net
+
 networks:
   traefik-net:
     driver: bridge
@@ -125,3 +156,5 @@ networks:
 volumes:
   minio-data:
   grafana-data:
+  sonarqube_data:
+  postgres_data:

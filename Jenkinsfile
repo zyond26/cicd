@@ -15,6 +15,7 @@ pipeline {
         DOCKER_IMAGE_NAME = 'zyond/web_cicd'
         DOCKER_TAG = 'latest'
         MINIO_CREDENTIALS = 'ec062030-09a1-4183-8f4f-81e593dacae3'
+        SONAR_TOKEN = credentials('sonar-token')
     }
     stages {
         stage('Clone') {
@@ -99,30 +100,49 @@ pipeline {
             }
         }
 
+
+        //  -------------- sonarqube -------------------------
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('MySonarQubeServer') {
+                    bat 'dotnet tool install --global dotnet-sonarscanner'
+                    bat 'dotnet-sonarscanner begin /k:"Web_Restaurant" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="${SONAR_TOKEN}"'
+                    bat 'dotnet build'
+                    bat 'dotnet-sonarscanner end /d:sonar.login="${SONAR_TOKEN}"'
+                }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
         // // ----------- MinIO Upload -----------
 
-        stage('Tạo file test') {
-            steps {
-                bat 'echo Build thành công > build-log.txt'
-            }
-        }
+        // stage('Tạo file test') {
+        //     steps {
+        //         bat 'echo Build thành công > build-log.txt'
+        //     }
+        // }
 
-        stage('Cấu hình AWS CLI cho MinIO') {
-            steps {
-                bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_access_key_id admin'
-                bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_secret_access_key 12345678'
-            }
-        }
+        // stage('Cấu hình AWS CLI cho MinIO') {
+        //     steps {
+        //         bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_access_key_id admin'
+        //         bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_secret_access_key 12345678'
+        //     }
+        // }
 
-        stage('Upload file lên MinIO') {
-            steps {
-                bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --endpoint-url http://minio.localhost s3 cp WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK s3://order-files/WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK'
-            }
-            // dùng mino để lưu trữ database của project 
-            //  oke
-        }
+        // stage('Upload file lên MinIO') {
+        //     steps {
+        //         bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --endpoint-url http://minio.localhost s3 cp WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK s3://order-files/WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK'
+        //     }
+        // }
 
-        // // ----------- Deploy to IIS -----------  ==> cd 
+        // // ----------- Deploy to IIS -----------  ==>  
 
         stage('Copy to IIS Folder') {
             steps {
