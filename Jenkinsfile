@@ -9,8 +9,7 @@ pipeline {
     environment {
         LANG = 'en_US.UTF-8'
         LC_ALL = 'en_US.UTF-8'
-        DOCKERHUB_CREDENTIALS = 'a8043e21-320b-4f12-b72e-612d7a93c553'
-        //  tên image tùy chọn 
+        DOCKERHUB_CREDENTIALS = 'a8043e21-320b-4f12-b72e-612d7a93c553' 
         IMAGE_NAME = 'zyond/web_cicd'
         DOCKER_IMAGE_NAME = 'zyond/web_cicd'
         DOCKER_TAG = 'latest'
@@ -112,8 +111,7 @@ pipeline {
                     bat 'dotnet-sonarscanner end /d:sonar.login="${SONAR_TOKEN}"'
                 }
             }
-        }
-        
+        } 
 
         // uppp
 
@@ -137,7 +135,7 @@ pipeline {
                 bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --endpoint-url http://minio.localhost s3 cp WebRestaurant12_autobackup_629062_2025-08-06T10-16-33.BAK s3://order-files/WebRestaurant12_autobackup_629062_2025-08-06T10-16-33.BAK'
             }
         }
-
+//  ngonnnnnnnnnnn
         // // ----------- Deploy to IIS -----------  ==>  
 
         stage('Copy to IIS Folder') {
