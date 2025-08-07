@@ -112,9 +112,7 @@ pipeline {
                 }
             }
         } 
-
-        // uppp
-
+        //  ko loi nua nhaaa hu 
         // // ----------- MinIO Upload -----------
 
         stage('Tạo file test') {
