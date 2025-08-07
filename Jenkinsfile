@@ -135,7 +135,7 @@ pipeline {
                 bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --endpoint-url http://minio.localhost s3 cp WebRestaurant12_autobackup_629062_2025-08-06T10-16-33.BAK s3://order-files/WebRestaurant12_autobackup_629062_2025-08-06T10-16-33.BAK'
             }
         }
-//  ngonnnnnnnnnnn
+
         // // ----------- Deploy to IIS -----------  ==>  
 
         stage('Copy to IIS Folder') {
