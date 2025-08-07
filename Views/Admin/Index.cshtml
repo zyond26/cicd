@@ -27,9 +27,11 @@
                             <td>@order.Status</td>
                             <td>@order.CreatedAt.ToString("dd/MM/yyyy")</td>
                             <td>
-                                <a href="@Url.Action("Details", "Admin", new { id = order.Id })" class="btn btn-info btn-sm">Chi tiết</a>
+                                <a href="@Url.Action("Details", "Admin", new { id = order.Id })"
+                                    class="btn btn-info btn-sm">Chi tiết</a>
 
-                                <form action="@Url.Action("DeleteOrder", "Admin", new { id = order.Id })" method="post" style="display:inline;">
+                                <form action="@Url.Action("DeleteOrder", "Admin", new { id = order.Id })" method="post"
+                                    style="display:inline;">
                                     <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                                 </form>
                             </td>
@@ -40,3 +42,7 @@
         </div>
     </div>
 </div>
+
+
+
+hdjfnjhdj
