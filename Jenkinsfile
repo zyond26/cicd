@@ -113,36 +113,36 @@ pipeline {
                 }
             }
         }
-        // stage('Quality Gate') {
-        //     steps {
-        //         timeout(time: 1, unit: 'HOURS') {
-        //             waitForQualityGate abortPipeline: true
-        //         }
-        //     }
-        // }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
         // uppp
 
         // // ----------- MinIO Upload -----------
 
-        // stage('Tạo file test') {
-        //     steps {
-        //         bat 'echo Build thành công > build-log.txt'
-        //     }
-        // }
+        stage('Tạo file test') {
+            steps {
+                bat 'echo Build thành công > build-log.txt'
+            }
+        }
 
-        // stage('Cấu hình AWS CLI cho MinIO') {
-        //     steps {
-        //         bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_access_key_id admin'
-        //         bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_secret_access_key 12345678'
-        //     }
-        // }
+        stage('Cấu hình AWS CLI cho MinIO') {
+            steps {
+                bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_access_key_id admin'
+                bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" configure set aws_secret_access_key 12345678'
+            }
+        }
 
-        // stage('Upload file lên MinIO') {
-        //     steps {
-        //         bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --endpoint-url http://minio.localhost s3 cp WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK s3://order-files/WebRestaurant12_autobackup_629062_2025-07-28T10-16-35.BAK'
-        //     }
-        // }
+        stage('Upload file lên MinIO') {
+            steps {
+                bat '"C:\\Program Files\\Amazon\\AWSCLIV2\\aws.exe" --endpoint-url http://minio.localhost s3 cp WebRestaurant12_autobackup_629062_2025-08-06T10-16-33.BAK s3://order-files/WebRestaurant12_autobackup_629062_2025-08-06T10-16-33.BAK'
+            }
+        }
 
         // // ----------- Deploy to IIS -----------  ==>  
 
