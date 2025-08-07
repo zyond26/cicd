@@ -121,6 +121,8 @@ pipeline {
             }
         }
 
+        // uppp
+
         // // ----------- MinIO Upload -----------
 
         // stage('Tạo file test') {
